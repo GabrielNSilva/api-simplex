@@ -46,7 +46,7 @@ class Matriz:
 		# 	if len(vet) != self.colunas-1:
 		# 		raise IndexError('Quantidade de objetos no vetor INVALIDA!')
 		# 	else:
-				for i in range(1,self.colunas):
+				for i in range(1, self.colunas):
 					self.mat[num][i] = vet[i-1]
 		# except IndexError as e:
 		# 	raise e
@@ -58,7 +58,8 @@ class Matriz:
 
 	def getMinColumnIndex(self):
 		a = self.getLine(self.linhas-1)
-		return a.index(min(a))
+		print('z line: '+str(a))
+		return a.index(min(a))+1
 
 	def getOutLineIndex(self,col):
 		aux = self.mat[1][self.colunas-1]/self.mat[1][col]
@@ -66,14 +67,23 @@ class Matriz:
 
 		for i in range(1,self.linhas-1):
 			res = self.mat[i][self.colunas-1]/self.mat[i][col]
-			if res < aux and res > 0:
+			print('divisao da linha '+str(i)+': '+str(res))
+			if 0 < res < aux:
 				aux = res
 				idx = i
 		return idx
 
 	def normaline(self, row_idx, col_idx):
+		self.mat[row_idx][0] = self.mat[0][col_idx]
 		pivo = self.mat[row_idx][col_idx]
+		print(pivo)
+		for n in range(1, self.colunas):
+			self.mat[row_idx][n] /= pivo
 
-
-
-	def escalonamento():
+	def escalonamento(self, row_idx, col_idx):
+		for i in range(1,self.linhas):
+			pivo = self.mat[i][col_idx]
+			if i != row_idx:
+				for j in range(1, self.colunas):
+					self.mat[i][j] = (self.mat[row_idx][j] * -pivo) + self.mat[i][col_idx]
+				# linha_norm * -pivo + linha_a_zerar

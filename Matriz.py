@@ -82,8 +82,8 @@ class Matriz:
 
 	def escalonamento(self, row_idx, col_idx):
 		for i in range(1,self.linhas):
-			pivo = self.mat[i][col_idx]
 			if i != row_idx:
+				pivo = self.mat[i][col_idx]
 				for j in range(1, self.colunas):
-					self.mat[i][j] = (self.mat[row_idx][j] * -pivo) + self.mat[i][col_idx]
+					self.mat[i][j] = (self.mat[row_idx][j] * -pivo) + self.mat[i][j]
 				# linha_norm * -pivo + linha_a_zerar

@@ -21,4 +21,4 @@ while vq.zHasNegative():
 	print(vq)
 	vq.escalonamento(lin_out_idx, min_col_idx)
 	print(vq)
-	break
+	# break

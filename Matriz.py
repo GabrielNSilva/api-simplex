@@ -1,13 +1,15 @@
 class Matriz:
 
 	def __init__(self, qtdX, qtdF):
+		qtdF = int(qtdF)
+		qtdX = int(qtdX)
 		self.qtdX = qtdX
 		self.qtdF = qtdF
 		self.linhas = qtdF+2
 		self.colunas = qtdF+qtdX+2
 		self.mat = []
 		self.montaMat()
-		print(self.mat)
+		# print(self.mat)
 
 	def __str__(self):
 		string = ""
@@ -29,6 +31,7 @@ class Matriz:
 
 		for i in range(1,self.qtdF+1):
 			self.mat[i][0] = 'F'+str(i)
+			self.mat[i][i+2] = 1
 			self.mat[0][self.qtdX+i] = 'F'+str(i)
 
 		for i in range(1,self.qtdX+1):
@@ -50,6 +53,24 @@ class Matriz:
 					self.mat[num][i] = vet[i-1]
 		# except IndexError as e:
 		# 	raise e
+
+	def setFunction(self,values):
+		col = 0
+		for val in values:
+			col = col + 1
+			self.mat[self.linhas-1][col] = -val
+
+	def setRules(self,rules):
+		row = col = 0
+		for rule in rules:
+			row = row + 1
+			col = 0
+			self.mat[row][self.colunas-1] = rule.pop()
+			for val in rule:
+				col = col + 1
+				# print("self.mat["+str(row)+"]["+str(col)+"] = "+str(val))
+				# print()
+				self.mat[row][col] = val
 
 	def zHasNegative(self):
 		if min(self.getLine(self.linhas-1)) < 0:

@@ -54,11 +54,17 @@ class Matriz:
 		# except IndexError as e:
 		# 	raise e
 
-	def setFunction(self,values):
+	def setFunctionMax(self,values):
 		col = 0
 		for val in values:
 			col = col + 1
 			self.mat[self.linhas-1][col] = -val
+
+	def setFunctionMin(self, values):
+		col = 0
+		for val in values:
+			col = col + 1
+			self.mat[self.linhas-1][col] = val
 
 	def setRules(self,rules):
 		row = col = 0
@@ -108,3 +114,8 @@ class Matriz:
 				for j in range(1, self.colunas):
 					self.mat[i][j] = (self.mat[row_idx][j] * -pivo) + self.mat[i][j]
 				# linha_norm * -pivo + linha_a_zerar
+
+	def trocaSignal(self):
+
+		#print (len(self.mat))
+		self.mat[self.linhas - 1][self.colunas - 1] *= -1

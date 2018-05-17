@@ -9,7 +9,7 @@ class Matriz:
 		self.colunas = qtdF+qtdX+2
 		self.mat = []
 		self.montaMat()
-		# print(self.mat)
+		# #print(self.mat)
 
 	def __str__(self):
 		string = ""
@@ -74,8 +74,8 @@ class Matriz:
 			self.mat[row][self.colunas-1] = rule.pop()
 			for val in rule:
 				col = col + 1
-				# print("self.mat["+str(row)+"]["+str(col)+"] = "+str(val))
-				# print()
+				# #print("self.mat["+str(row)+"]["+str(col)+"] = "+str(val))
+				# #print()
 				self.mat[row][col] = val
 
 	def zHasNegative(self):
@@ -85,7 +85,7 @@ class Matriz:
 
 	def getMinColumnIndex(self):
 		a = self.getLine(self.linhas-1)
-		print('z line: '+str(a))
+		#print('z line: '+str(a))
 		return a.index(min(a))+1
 
 	def getOutLineIndex(self,col):
@@ -94,7 +94,7 @@ class Matriz:
 
 		for i in range(1,self.linhas-1):
 			res = self.mat[i][self.colunas-1]/self.mat[i][col]
-			print('divisao da linha '+str(i)+': '+str(res))
+			#print('divisao da linha '+str(i)+': '+str(res))
 			if 0 < res < aux:
 				aux = res
 				idx = i
@@ -103,7 +103,7 @@ class Matriz:
 	def normaline(self, row_idx, col_idx):
 		self.mat[row_idx][0] = self.mat[0][col_idx]
 		pivo = self.mat[row_idx][col_idx]
-		print(pivo)
+		#print(pivo)
 		for n in range(1, self.colunas):
 			self.mat[row_idx][n] /= pivo
 
@@ -117,5 +117,5 @@ class Matriz:
 
 	def trocaSignal(self):
 
-		#print (len(self.mat))
+		##print (len(self.mat))
 		self.mat[self.linhas - 1][self.colunas - 1] *= -1

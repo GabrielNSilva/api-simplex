@@ -37,6 +37,14 @@ class Matriz:
 		for i in range(1,self.qtdX+1):
 			self.mat[0][i] = 'X'+str(i)
 
+	def getLabels(self):
+		label = []
+
+		for i in range(1,self.linhas):
+			label.append(self.mat[i][0])
+
+		return label
+
 	def getLine(self,num):
 		# return self.mat[num]
 		linha = []
@@ -44,7 +52,7 @@ class Matriz:
 	  		linha.append(self.mat[num][i])
 		return linha
 
-	def setLine(self, num, vet):
+	def setLine(self, num):#, vet):
 		# try:
 		# 	if len(vet) != self.colunas-1:
 		# 		raise IndexError('Quantidade de objetos no vetor INVALIDA!')

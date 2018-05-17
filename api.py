@@ -18,8 +18,8 @@ def SimplexMax():
         funcao = data['funcao']
         regras = data['regras']
         resposta = maximizar(qtd_var, qtd_regras, funcao, regras)
-        print(type(resposta))
-        print(resposta)
+        #print(type(resposta))
+        #print(resposta)
         aux = {}
         aux["labels"] = resposta.getLabels()
         for i in range(1,resposta.linhas):
@@ -38,9 +38,13 @@ def SimplexMin():
         regras = data['regras']
         aux = [qtd_var, qtd_regras, funcao, regras]
         resposta = minimizar(qtd_var, qtd_regras, funcao, regras)
-        aux = str(resposta)
-        #print(aux)
-        return jsonify({"data": aux})
+        aux = {}
+        aux["labels"] = resposta.getLabels()
+        for i in range(1, resposta.linhas):
+            aux[aux["labels"][i-1]] = resposta.getLine(i)
+        aux = jsonify({"data": aux})
+        print(aux) 
+        return aux
     return jsonify("error")
 
 if __name__ == "__main__":

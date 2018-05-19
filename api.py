@@ -9,6 +9,7 @@ def index():
 
 
 @app.route('/simplex/maximizar', methods=['POST'])
+@crossdomain(origin='*')
 def SimplexMax():
     if request.method == 'POST':
         data = request.get_json()
@@ -43,7 +44,7 @@ def SimplexMin():
         for i in range(1, resposta.linhas):
             aux[aux["labels"][i-1]] = resposta.getLine(i)
         aux = jsonify({"data": aux})
-        print(aux) 
+        print(aux)
         return aux
     return jsonify("error")
 

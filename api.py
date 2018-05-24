@@ -1,7 +1,10 @@
 from flask import *
 from simplex import *
 import json
+from flask_cors import CORS
+
 app = Flask(__name__)
+CORS(app)
 
 @app.route("/simplex")
 def index():
@@ -9,7 +12,6 @@ def index():
 
 
 @app.route('/simplex/maximizar', methods=['POST'])
-@crossdomain(origin='*')
 def SimplexMax():
     if request.method == 'POST':
         data = request.get_json()

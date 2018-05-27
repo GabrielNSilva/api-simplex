@@ -1,9 +1,11 @@
 from flask import *
 from simplex import *
 import json
+import copy
 from flask_cors import CORS
 
 app = Flask(__name__)
+app.debug = True
 CORS(app)
 
 @app.route("/simplex")
@@ -20,15 +22,25 @@ def SimplexMax():
         qtd_regras = data['qtd_regras']
         funcao = data['funcao']
         regras = data['regras']
+        qtd_iterações = data['iteracoes']
         resposta = maximizar(qtd_var, qtd_regras, funcao, regras)
         #print(type(resposta))
         #print(resposta)
-        aux = {}
-        aux["labels"] = resposta.getLabels()
-        for i in range(1,resposta.linhas):
-            aux[aux["labels"][i-1]] = resposta.getLine(i)
+        aux = []
+        cont=0
+        for resp in resposta:
+            print(resp)
+            cont +=1
+            if(qtd_iterações >= cont):
+                aux2={}
+                aux2["labels"] = resp.getLabels()
+                for i in range(1, resp.linhas):
+                    aux2[aux2["labels"][i-1]] = resp.getLine(i)
+                #aux2 = jsonify({"data": aux2})
+                aux.append(aux2)
+        #for i in aux:   
+        #    print(i)
         aux = jsonify({"data": aux})
-        print(aux)
         return aux
     return jsonify("error")
 @app.route('/simplex/minimizar', methods=['POST'])
@@ -39,14 +51,23 @@ def SimplexMin():
         qtd_regras = data['qtd_regras']
         funcao = data['funcao']
         regras = data['regras']
+        qtd_iterações = data['iteracoes']
         aux = [qtd_var, qtd_regras, funcao, regras]
         resposta = minimizar(qtd_var, qtd_regras, funcao, regras)
-        aux = {}
-        aux["labels"] = resposta.getLabels()
-        for i in range(1, resposta.linhas):
-            aux[aux["labels"][i-1]] = resposta.getLine(i)
+        aux = []
+        cont = 0
+        for resp in resposta:
+            cont += 1
+            if(qtd_iterações >= cont):
+                aux2 = {}
+                aux2["labels"] = resp.getLabels()
+                for i in range(1, resp.linhas):
+                    aux2[aux2["labels"][i-1]] = resp.getLine(i)
+                #aux2 = jsonify({"data": aux2})
+                aux.append(aux2)
+        #for i in aux:
+        #    print(i)
         aux = jsonify({"data": aux})
-        print(aux)
         return aux
     return jsonify("error")
 

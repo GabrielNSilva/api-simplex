@@ -71,6 +71,13 @@ def SimplexMin():
         return aux
     return jsonify("error")
 
+
+@app.route('/simplex/precosoma', methods=['POST'])
+def PrecoSoma():
+    data = request.get_json()
+    resposta = precoSomaCalculo(data)
+    return jsonify(resposta)
+
 if __name__ == "__main__":
 
 	app.run()

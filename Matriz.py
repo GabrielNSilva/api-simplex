@@ -97,11 +97,17 @@ class Matriz:
 		return a.index(min(a))+1
 
 	def getOutLineIndex(self,col):
-		aux = self.mat[1][self.colunas-1]/self.mat[1][col]
+		if self.mat[1][col] != 0:
+			aux = self.mat[1][self.colunas-1]/self.mat[1][col]
+		else:
+			aux = 99999999999999999999999999999999999999
 		idx = 1
 
 		for i in range(1,self.linhas-1):
-			res = self.mat[i][self.colunas-1]/self.mat[i][col]
+			if self.mat[i][col] != 0:
+				res = self.mat[i][self.colunas-1]/self.mat[i][col]
+			else:
+				res = 0
 			#print('divisao da linha '+str(i)+': '+str(res))
 			if 0 < res < aux:
 				aux = res
@@ -113,7 +119,8 @@ class Matriz:
 		pivo = self.mat[row_idx][col_idx]
 		#print(pivo)
 		for n in range(1, self.colunas):
-			self.mat[row_idx][n] /= pivo
+			if pivo != 0:
+				self.mat[row_idx][n] /= pivo
 
 	def escalonamento(self, row_idx, col_idx):
 		for i in range(1,self.linhas):

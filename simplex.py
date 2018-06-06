@@ -6,20 +6,20 @@ def maximizar(qtd_var, qtd_regras, funcao, regras):
 	vq = Matriz(qtd_var,qtd_regras)
 	vq.setFunctionMax(funcao)
 	vq.setRules(regras)
-	#print(vq)
-	#print()
+
 
 	while vq.zHasNegative():
 		min_col_idx = vq.getMinColumnIndex()
 		lin_out_idx = vq.getOutLineIndex(min_col_idx)
 		vq.normaline(lin_out_idx, min_col_idx)
-		#print(vq)
+
 		vq.escalonamento(lin_out_idx, min_col_idx)
-		#print(vq)
-		# break
-		tables.append(copy.copy(vq))
-	#for i in tables:
-	#	print(i)
+
+
+		tables.append(copy.deepcopy(vq))
+
+	for i in tables:
+		print (i)
 	return tables
 
 def minimizar(qtd_var, qtd_regras, funcao, regras):
@@ -28,20 +28,19 @@ def minimizar(qtd_var, qtd_regras, funcao, regras):
 
 	vq.setFunctionMin(funcao)
 	vq.setRules(regras)
-	#print(vq)
-	#print()
+
 
 	while vq.zHasNegative():
 		min_col_idx = vq.getMinColumnIndex()
 		lin_out_idx = vq.getOutLineIndex(min_col_idx)
 		vq.normaline(lin_out_idx, min_col_idx)
-		#print(vq)
+
 		vq.escalonamento(lin_out_idx, min_col_idx)
-		#print(vq)
-		# break
-		tables.append(copy.copy(vq))
+
+		tables.append(copy.deepcopy(vq))
 	vq.trocaSignal()
-	tables.append(copy.copy(vq))
+	tables.pop()
+	tables.append(copy.deepcopy(vq))
 	return tables
 
 
@@ -53,7 +52,6 @@ def precoSomaCalculo(obj):
 	lines = len(obj)-1
 	regras = lines - 1
 	xs = coluns - regras-1
-	#print("xs", xs)
 	for i in obj:
 		if i != "labels" and i[0]=="X":
 			j = len(obj[i])-1

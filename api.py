@@ -28,8 +28,8 @@ def SimplexMax():
         #print(resposta)
         aux = []
         cont=0
+        #print(resposta)
         for resp in resposta:
-            print(resp)
             cont +=1
             if(qtd_iterações >= cont):
                 aux2={}

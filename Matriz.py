@@ -119,8 +119,7 @@ class Matriz:
 		pivo = self.mat[row_idx][col_idx]
 		#print(pivo)
 		for n in range(1, self.colunas):
-			if pivo != 0:
-				self.mat[row_idx][n] /= pivo
+			self.mat[row_idx][n] /= pivo
 
 	def escalonamento(self, row_idx, col_idx):
 		for i in range(1,self.linhas):

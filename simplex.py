@@ -52,13 +52,15 @@ def precoSomaCalculo(obj):
 	lines = len(obj)-1
 	regras = lines - 1
 	xs = coluns - regras-1
+	label = []
 	for i in obj:
 		if i != "labels" and i[0]=="X":
 			j = len(obj[i])-1
 			resposta[i] = [ obj[i][j],"-","-","-"]
-	
+			label.append(i)
 	for f in range(regras):
 		fs = 'F'+str(f+1)
+		label.append(fs)
 		found = False
 		for j in obj:
 			if(fs == j):
@@ -71,6 +73,7 @@ def precoSomaCalculo(obj):
 		else:		#se nao existe com um valor
 			resposta[fs] = [0, precoSoma(xs,fs, obj), precoSomaMM("+", fs, obj, xs), precoSomaMM("-", fs, obj, xs)]
 
+	resposta["labels"] = label
 	return resposta
 
 

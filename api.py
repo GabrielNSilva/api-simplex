@@ -23,7 +23,9 @@ def SimplexMax():
         funcao = data['funcao']
         regras = data['regras']
         qtd_iterações = data['iteracoes']
-        resposta = maximizar(qtd_var, qtd_regras, funcao, regras)
+        aux_resp = maximizar(qtd_var, qtd_regras, funcao, regras, qtd_iterações)
+        resposta = aux_resp[0]
+        cont = aux_resp[1]
         #print(type(resposta))
         #print(resposta)
         aux = []
@@ -40,7 +42,12 @@ def SimplexMax():
                 aux.append(aux2)
         #for i in aux:   
         #    print(i)
-        aux = jsonify({"data": aux})
+        if(cont > qtd_iterações):
+            estouro = True
+        else:
+            estouro = False
+
+        aux = jsonify({"data": aux, "infinito": estouro})
         return aux
     return jsonify("error")
 @app.route('/simplex/minimizar', methods=['POST'])
@@ -53,7 +60,10 @@ def SimplexMin():
         regras = data['regras']
         qtd_iterações = data['iteracoes']
         aux = [qtd_var, qtd_regras, funcao, regras]
-        resposta = minimizar(qtd_var, qtd_regras, funcao, regras)
+        aux_resp = minimizar(qtd_var, qtd_regras, funcao,regras, qtd_iterações)
+        resposta = aux_resp[0]
+        cont = aux_resp[1]
+
         aux = []
         cont = 0
         for resp in resposta:
@@ -67,7 +77,12 @@ def SimplexMin():
                 aux.append(aux2)
         #for i in aux:
         #    print(i)
-        aux = jsonify({"data": aux})
+        if(cont > qtd_iterações):
+            estouro = True
+        else:
+            estouro = False
+
+        aux = jsonify({"data": aux, "infinito": estouro})
         return aux
     return jsonify("error")
 

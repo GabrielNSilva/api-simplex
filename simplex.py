@@ -1,13 +1,14 @@
 from Matriz import *
 import copy
 
-def maximizar(qtd_var, qtd_regras, funcao, regras):
+
+def maximizar(qtd_var, qtd_regras, funcao, regras, qtd_iterações):
 	tables = []
 	vq = Matriz(qtd_var,qtd_regras)
 	vq.setFunctionMax(funcao)
 	vq.setRules(regras)
 
-
+	cont = 0
 	while vq.zHasNegative():
 		min_col_idx = vq.getMinColumnIndex()
 		lin_out_idx = vq.getOutLineIndex(min_col_idx)
@@ -18,34 +19,42 @@ def maximizar(qtd_var, qtd_regras, funcao, regras):
 
 		tables.append(copy.deepcopy(vq))
 
-	for i in tables:
-		print (i)
-	return tables
+		cont += 1
+		if cont > qtd_iterações:
+			break
 
-def minimizar(qtd_var, qtd_regras, funcao, regras):
+	#for i in tables:
+		#print (i)
+	return [tables, cont]
+
+
+def minimizar(qtd_var, qtd_regras, funcao, regras, qtd_iterações):
 	tables = []
 	vq = Matriz(qtd_var, qtd_regras)
 
 	vq.setFunctionMin(funcao)
 	vq.setRules(regras)
 
-
+	cont = 0
 	while vq.zHasNegative():
 		min_col_idx = vq.getMinColumnIndex()
 		lin_out_idx = vq.getOutLineIndex(min_col_idx)
 		vq.normaline(lin_out_idx, min_col_idx)
 
 		vq.escalonamento(lin_out_idx, min_col_idx)
-
 		tables.append(copy.deepcopy(vq))
+		cont+=1
+		if cont > qtd_iterações:
+			break
 	vq.trocaSignal()
 	tables.pop()
 	tables.append(copy.deepcopy(vq))
-	return tables
+	return [tables,cont]
 
 
 def precoSomaCalculo(obj):
 
+	#print(obj)
 	# variavel/V.F/Preço Soma/+/-
 	resposta = {}
 	coluns = len(obj[obj["labels"][0]])
@@ -58,6 +67,17 @@ def precoSomaCalculo(obj):
 			j = len(obj[i])-1
 			resposta[i] = [ obj[i][j],"-","-","-"]
 			label.append(i)
+	for x in range(xs):
+		x_aux = 'X'+str(x+1)
+		exist = False
+		for i in obj:
+			if i != "labels" and i == x_aux:
+				exist= True
+				break
+		if exist==False :
+			resposta[x_aux] = [0, "-", "-", "-"]
+			label.append(x_aux)
+			print("AAAA")
 	for f in range(regras):
 		fs = 'F'+str(f+1)
 		label.append(fs)
@@ -73,6 +93,7 @@ def precoSomaCalculo(obj):
 		else:		#se nao existe com um valor
 			resposta[fs] = [0, precoSoma(xs,fs, obj), precoSomaMM("+", fs, obj, xs), precoSomaMM("-", fs, obj, xs)]
 
+	#print(label)
 	resposta["labels"] = label
 	return resposta
 

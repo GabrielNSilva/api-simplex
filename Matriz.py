@@ -97,10 +97,10 @@ class Matriz:
 		return a.index(min(a))+1
 
 	def getOutLineIndex(self,col):
-		if self.mat[1][col] != 0:
+		if self.mat[1][col] != 0 and self.mat[1][col]!= None:
 			aux = self.mat[1][self.colunas-1]/self.mat[1][col]
 		else:
-			aux = 99999999999999999999999999999999999999
+			aux = 9999999999999999999999
 		idx = 1
 
 		for i in range(1,self.linhas-1):

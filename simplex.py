@@ -86,9 +86,9 @@ def precoSomaCalculo(obj):
 			if(fs == j):
 				found = True
 				break
-		
+
 		if(found):	#se existe com um valor
-			j = len(obj[i])-1
+			j = len(obj[fs])-1
 			resposta[fs] = [obj[fs][j], precoSoma(xs, fs, obj), precoSomaMM("+", fs, obj, xs), precoSomaMM("-", fs, obj, xs)]
 		else:		#se nao existe com um valor
 			resposta[fs] = [0, precoSoma(xs,fs, obj), precoSomaMM("+", fs, obj, xs), precoSomaMM("-", fs, obj, xs)]
@@ -106,9 +106,9 @@ def precoSoma(xs,fs,obj):
 
 
 def precoSomaMM(signal, fs, obj, xs):
-	
+
 	prox_pos= None
-	prox_neg= None 
+	prox_neg= None
 
 	pos = xs+int(fs[len(fs)-1])-1
 	#pos_last = xs + int(fs[len(fs)-1])

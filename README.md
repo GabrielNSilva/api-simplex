@@ -1,4 +1,4 @@
-# README #
+﻿# README #
 
 API para cálculo de funções lineares de maximização e minimização utilizando algoritmo simplex
 
@@ -11,6 +11,8 @@ API para cálculo de funções lineares de maximização e minimização utiliza
 ### How do I get set up? ###
 
 * Summary of set up
+	Python 3.6.5
+	Flask Cors
 * Configuration
 * Dependencies
 * Database configuration
